@@ -1,0 +1,16 @@
+✅ Dynamic Azan Scheduler Running... Press CTRL+C to stop.
+📡 Fetching prayer times for 05-03-2025 from: https://api.aladhan.com/v1/timingsByCity/05-03-2025?city=Madrid&country=Spain&method=3
+
+📅 Scheduling daily Azan times for 05-03-2025...
+   Fajr: 06:12
+   Dhuhr: 13:26
+   Asr: 16:38
+   Maghrib: 19:11
+   Isha: 20:36
+⚠️ Fajr time (06:12) already passed today.
+⚠️ Dhuhr time (13:26) already passed today.
+⚠️ Asr time (16:38) already passed today.
+⏰ Scheduled Maghrib Azan (1 min early) at 19:10
+🕰️ Reminder set for Maghrib at 19:01
+⏰ Scheduled Isha Azan (1 min early) at 20:35
+🕰️ Reminder set for Isha at 20:26
