@@ -229,4 +229,4 @@ def main_loop(city, country, method=3):
 # Entry point
 ################################################
 print("✅ Dynamic Azan Scheduler Running... Press CTRL+C to stop.")
-main_loop(CITY, COUNTRY, METHOD
+main_loop(CITY, COUNTRY, METHOD)
