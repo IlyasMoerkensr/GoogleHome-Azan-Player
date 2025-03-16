@@ -31,11 +31,13 @@ sys.stderr.reconfigure(line_buffering=True)
 ###################################
 # USER CONFIG
 ###################################
-CITY = "Madrid"           # City name
-COUNTRY = "Spain"         # Country name
+CITY = "Urmond"           # City name
+COUNTRY = "Netherlands"         # Country name
 METHOD = 3                 # AlAdhan method (e.g., 3 = Muslim World League)
 TEST_TIME = ""       # Set to "" if no daily test azan is needed
-TARGET_DEVICE_NAME = "Parents Room speaker"  # Google Home device name to cast
+
+# Replace with the IP address of your Google Home device
+GOOGLE_HOME_IP = "192.168.178.12"  # Example IP, replace with your actual IP
 
 # Publicly hosted Azan MP3 URL
 AZAN_URL = "https://www.islamcan.com/audio/adhan/azan1.mp3"
@@ -72,21 +74,19 @@ def get_prayer_times_for_date(date_obj, city, country, method=3):
     return None
 
 ################################################
-# connect_to_google_home
+# connect_to_google_home_by_ip
 ################################################
-def connect_to_google_home():
-    print("🔍 Searching for Google Home devices...")
-    chromecasts, _ = pychromecast.get_chromecasts()
-    print(f"🔎 Found {len(chromecasts)} Chromecast devices.")
-
-    cast = next((c for c in chromecasts if c.name == TARGET_DEVICE_NAME), None)
-    if not cast:
-        print(f"❌ Could not find '{TARGET_DEVICE_NAME}' on the network.")
+def connect_to_google_home_by_ip(ip_address):
+    print(f"🔍 Connecting to Google Home at IP address: {ip_address}...")
+    try:
+        # Directly use the IP address to connect
+        cast = pychromecast.Chromecast(ip_address)
+        cast.wait()
+        print(f"✅ Connected to Google Home device at {ip_address}")
+        return cast
+    except Exception as e:
+        print(f"❌ Failed to connect to the device: {e}")
         return None
-
-    print(f"✅ Found target device: {cast.name} (host: {cast.socket_client.host})")
-    cast.wait()
-    return cast
 
 ################################################
 # play_azan
@@ -94,7 +94,7 @@ def connect_to_google_home():
 def play_azan():
     print("🔊 Starting Azan sequence...")
     try:
-        cast = connect_to_google_home()
+        cast = connect_to_google_home_by_ip(GOOGLE_HOME_IP)
         if not cast:
             print("🚫 Aborting Azan: target device not found.")
             return
@@ -229,4 +229,4 @@ def main_loop(city, country, method=3):
 # Entry point
 ################################################
 print("✅ Dynamic Azan Scheduler Running... Press CTRL+C to stop.")
-main_loop(CITY, COUNTRY, METHOD)
+main_loop(CITY, COUNTRY, METHOD
